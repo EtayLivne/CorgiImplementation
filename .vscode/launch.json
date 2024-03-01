@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387  ${file}
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Train GPT",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "/homes/etayl/code/bert/train_gpt.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "AWS_ACCESS_KEY_ID": "6WK503YYSN97AX83D833",
+                "AWS_SECRET_ACCESS_KEY": "26ZZIZCjUa8D6i+E/4BL9H0MOaW5gbqK0kJqvpE4",
+                "S3_ENDPOINT": "http://vast1.me-corp.lan"
+            }
+        },
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "AWS_ACCESS_KEY_ID": "6WK503YYSN97AX83D833",
+                "AWS_SECRET_ACCESS_KEY": "26ZZIZCjUa8D6i+E/4BL9H0MOaW5gbqK0kJqvpE4",
+                "S3_ENDPOINT": "http://vast1.me-corp.lan"
+            }
+        }
+    ]
+}

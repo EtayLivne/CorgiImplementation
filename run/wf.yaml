@@ -1,0 +1,68 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: etay-gpt
+spec:
+  volumes:
+  - name: argo-aws-cred
+    configMap:
+      name: argo-aws-cred
+  - name: argo-aws-config
+    configMap:
+      name: argo-aws-config
+  entrypoint: train-gpt
+  templates:
+  - name: train-gpt
+    steps:
+    - - name: run-training
+        template: run-training
+  - name: run-training
+    tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+    nodeSelector:
+      gpu: nvidia-a100
+    container:
+      env:
+        - name: S3_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: op-s3-storage
+              key: endpointurl
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: op-s3-storage
+              key: accessKey
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: op-s3-storage
+              key: secretKey
+      imagePullPolicy: Always
+      image: artifactory.sddc.mobileye.com/dl-algo-docker-release/pqdsbm:corgipt
+      resources:
+        requests:
+          memory: 32Gi
+          cpu: 4
+          nvidia.com/gpu: '1'
+        limits:
+          memory: 32Gi
+          cpu: 4
+          nvidia.com/gpu: '1'
+      command: [bash, -c]
+      args:
+        - >-
+          echo "GOOD MORNING TEL AVIV!";
+          COMET_API_KEY=vRiwL5vDZdkgbiXmyG8HlzHYT;
+          echo $COMET_API_KEY;
+          echo "start training!";
+          sleep 999999;
+      volumeMounts:
+      - name: argo-aws-cred
+        mountPath: /root/.aws/credentials
+        subPath: credentials
+      - name: argo-aws-config
+        mountPath: /root/.aws/config
+        subPath: config

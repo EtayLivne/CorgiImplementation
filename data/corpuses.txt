@@ -1,0 +1,6 @@
+gutenberg (books)
+Problem Report Corpus (software issues tickets)
+Sentiment Polarity Dataset (movie reviews)
+European Parliament Proceedings Parallel Corpus (meetings)
+Twitter Samples (Twitter Samples)
+Genesis Corpus (potentially from bilblical books?)
